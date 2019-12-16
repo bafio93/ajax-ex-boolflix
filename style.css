@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Stile dei contenitori: */
+
+body {
+    background: #1E2D3B;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    height: 70px;
+    background: rgb(46, 58, 70);
+    padding: 25px;
+}
+
+.film-container {
+    padding: 10px 10vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Stile dei singoli blocchetti film: */
+
+.film-container .film-box {
+    padding: 5px 10px;
+    background-color: ivory;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.film-container .film-box ul {
+    list-style: none;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>BoolFlix.baf</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <input type="text" name="" value="">
+            <button type="button" name="button">Cerca!</button>
+        </header>
+        <div class="film-container"></div>
+        <!-- Inserire qui il template handlebars -->
+        <script id="template-film" type="text/x-handlebars-template">
+            <div class="film-box">
+                <ul>
+                    <li><strong>{{ title }}</strong></li>
+                    <li><small>{{ original_title }}</small></li>
+                    <li><small>{{ original_language }}</small></li>
+                    <li><strong>{{ vote_average }}</strong></li>
+                </ul>
+            </div>
+        </script>
+        <!-- Mio script -->
+        <script src="main.js" charset="utf-8"></script>
+    </body>
+</html>
