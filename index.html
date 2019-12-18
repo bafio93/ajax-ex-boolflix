@@ -16,13 +16,14 @@
         </header>
         <div class="film-container"></div>
         <!-- Inserire qui il template handlebars -->
+        <img src="" alt="">
         <script id="template-film" type="text/x-handlebars-template">
             <div class="film-box">
                 <ul>
                     <li><strong>{{ title }}</strong></li>
                     <li><small>{{ original_title }}</small></li>
                     <!-- <li><small>{{ original_language }}</small></li> -->
-                    <img src="{{ original_language }}">
+                    <img src="{{{ original_language }}}" alt="">
                 </ul>
                 <div class="star-box">{{{ stelline }}}</div>
             </div>

@@ -19,49 +19,7 @@ $(document).ready(function(){
                 },
                 "method":"GET",
                 "success": function(data_success){
-// FUNZIONE DI SUCCESS NELLA AJAX!
-                    // supponiamo di volere stampare in console il titolo dei film trovati:
-                    console.log(data_success);
-                    // Questo ciclo FOR è necessario per creare le mie schede film!
-                    for (var i = 0; i < data_success.results.length; i++) {
-// TEMPLATE HANDLEBARS
-                        // Inizializzo il template handlebars
-                        var template_html = $("#template-film").html();
-                        var template_function = Handlebars.compile(template_html);
-                        // Definiamo le variabili che verranno utilizzate nel template handlebars:
-                        var current_selection = data_success.results[i];
-                        // GESTIONE DEL VOTO IN STELLINE: INIZIO
-                        var voto_stelline = Math.ceil(current_selection.vote_average/2);
-                        var stelline = "";
-                        console.log(voto_stelline);
-                        for (var j = 1; j <= 5; j++) {
-                            if (j <= voto_stelline) {
-                                stelline += '<i class="fas fa-star"></i>'
-                            } else {
-                                stelline += '<i class="far fa-star"></i>'
-                            };
-                        };
-                        // GESTIONE DEL VOTO IN STELLINE: FINE
-                        // GESTIONE DELLA BANDIERINA: INIZIO
-                        // UTILIZZIAMO CODICE PRESENTE NEL SITO: https://www.countryflags.io/#body
-                        // PROBLEMA: EN PER ENGLISH, MA ESISTE BANDIERA! -> DIVENTA gb.
-                        var codice_bandiera = "https://www.countryflags.io/";
-                        if (current_selection.original_language=="en") {
-                            codice_bandiera += "gb/flat/64.png";
-                        } else {
-                            codice_bandiera += current_selection.original_language + "/flat/32.png";
-                        }
-                        // GESTIONE DELLA BANDIERINA: FINE
-                        var variabili = {
-                            "title":current_selection.title,
-                            "original_title":current_selection.original_title,
-                            "original_language":codice_bandiera,
-                            "stelline":stelline
-                        };
-                        // Ingetto le variabili nella funzione template:
-                        var html_finale = template_function(variabili);
-                        $(".film-container").append(html_finale);
-                    };
+                    stampa_film(data_success);
                 },
                 "error": function(){
                     alert("ERROR! -.-");
@@ -79,51 +37,7 @@ $(document).ready(function(){
                 },
                 "method":"GET",
                 "success": function(data_success){
-// FUNZIONE DI SUCCESS NELLA AJAX!
-                    // supponiamo di volere stampare in console il titolo dei film trovati:
-                    console.log(data_success);
-                    // Questo ciclo FOR è necessario per creare le mie schede film!
-                    for (var i = 0; i < data_success.results.length; i++) {
-// TEMPLATE HANDLEBARS
-                        // Inizializzo il template handlebars
-                        var template_html = $("#template-film").html();
-                        var template_function = Handlebars.compile(template_html);
-                        // Definiamo le variabili che verranno utilizzate nel template handlebars:
-                        var current_selection = data_success.results[i];
-                        // GESTIONE DEL VOTO IN STELLINE: INIZIO
-                        var voto_stelline = Math.ceil(current_selection.vote_count/2);
-                        var stelline = "";
-                        console.log(voto_stelline);
-                        for (var j = 1; j <= 5; j++) {
-                            if (j <= voto_stelline) {
-                                stelline += '<i class="fas fa-star"></i>'
-                            } else {
-                                stelline += '<i class="far fa-star"></i>'
-                            };
-                        };
-                        // GESTIONE DEL VOTO IN STELLINE: FINE
-// GESTIONE DELLA BANDIERINA: INIZIO
-                        // UTILIZZIAMO CODICE PRESENTE NEL SITO: https://www.countryflags.io/#body
-                        // PROBLEMA: EN PER ENGLISH, MA ESISTE BANDIERA! -> DIVENTA gb.
-                        var codice_bandiera = "https://www.countryflags.io/";
-                        if (current_selection.original_language=="en") {
-                            codice_bandiera += "gb/flat/64.png";
-                        } else if (current_selection.original_language.length==0) {
-                            codice_bandiera = "";
-                        } else {
-                            codice_bandiera += current_selection.original_language + "/flat/32.png";
-                        }
-// GESTIONE DELLA BANDIERINA: FINE
-                        var variabili = {
-                            "title":current_selection.name,
-                            "original_title":current_selection.original_name,
-                            "original_language":codice_bandiera,
-                            "stelline":stelline
-                        };
-                        // Ingetto le variabili nella funzione template:
-                        var html_finale = template_function(variabili);
-                        $(".film-container").append(html_finale);
-                    };
+                    stampa_serie(data_success);
                 },
                 "error": function(){
                     alert("ERROR! -.-");
@@ -135,3 +49,81 @@ $(document).ready(function(){
         }
     })
 })
+//
+// FUNZIONI DICHIARATE:
+//
+// FUNZIONE STELLINE
+//
+function f_stelline(voto) {
+    var voto_stelline = Math.ceil(voto/2);
+    var stelline = "";
+    for (var j = 1; j <= 5; j++) {
+        if (j <= voto_stelline) {
+            stelline += '<i class="fas fa-star"></i>'
+        } else {
+            stelline += '<i class="far fa-star"></i>'
+        };
+    };
+    return stelline;
+}
+//
+// FUNZIONE BANDIERINA
+//
+function f_bandierina(lingua){
+    var codice_bandiera = "https://www.countryflags.io/";
+    if (lingua=="en") {
+        codice_bandiera += "gb/flat/32.png";
+    } else {
+        codice_bandiera += lingua + "/flat/32.png";
+    };
+    $.get(codice_bandiera).fail(function() {
+        codice_bandiera = "";
+        // Mezzo funziona, un po'incasinato però! :P
+    });
+    return codice_bandiera;
+}
+//
+// FUNZIONE STAMPA FILM
+//
+function stampa_film(data_success){
+    for (var i = 0; i < data_success.results.length; i++) {
+    // TEMPLATE HANDLEBARS
+        // Inizializzo il template handlebars
+        var template_html = $("#template-film").html();
+        var template_function = Handlebars.compile(template_html);
+        // Definiamo le variabili che verranno utilizzate nel template handlebars:
+        var current_selection = data_success.results[i];
+        var variabili = {
+            "title":current_selection.title,
+            "original_title":current_selection.original_title,
+            "original_language":f_bandierina(current_selection.original_language),
+            "stelline":f_stelline(current_selection.vote_count)
+        };
+        // Ingetto le variabili nella funzione template:
+        var html_finale = template_function(variabili);
+        $(".film-container").append(html_finale);
+    };
+}
+//
+// FUNZIONE STAMPA SERIE TV
+//
+function stampa_serie(data_success){
+    for (var i = 0; i < data_success.results.length; i++) {
+    // TEMPLATE HANDLEBARS
+        // Inizializzo il template handlebars
+        var template_html = $("#template-film").html();
+        var template_function = Handlebars.compile(template_html);
+        // Definiamo le variabili che verranno utilizzate nel template handlebars:
+        var current_selection = data_success.results[i];
+        var variabili = {
+            "title":current_selection.name,
+            "original_title":current_selection.original_name,
+            "original_language":f_bandierina(current_selection.original_language),
+            "stelline":f_stelline(current_selection.vote_count)
+        };
+        // Ingetto le variabili nella funzione template:
+        var html_finale = template_function(variabili);
+        $(".film-container").append(html_finale);
+    };
+}
+//
