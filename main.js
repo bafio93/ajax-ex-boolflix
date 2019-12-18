@@ -73,6 +73,10 @@ function f_bandierina(lingua){
     var codice_bandiera = "https://www.countryflags.io/";
     if (lingua=="en") {
         codice_bandiera += "gb/flat/32.png";
+    } else if (lingua=="ja") {
+        codice_bandiera += "jp/flat/32.png";
+    } else if (lingua=="zh") {
+        codice_bandiera += "cn/flat/32.png";
     } else {
         codice_bandiera += lingua + "/flat/32.png";
     };
