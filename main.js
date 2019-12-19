@@ -1,62 +1,68 @@
 $(document).ready(function(){
     // Intercettiamo il click dell'utente sul bottone.
     $("header button").click(function(){
-        // Svuotiamo il contenitore delle risposte di tutti i film cercati precedentemente:
-        $(".film-container").children().remove();
-        // Prendiamo il testo del campo input.
-        var testo_input = $("input").val();
-        // Con questo if, prendiamo il valore solo se non è vuoto!
-        if (testo_input.length!=0) {
-// PARTE DELLA CHIAMATA API FILM: INIZIO
-            var my_url = "https://api.themoviedb.org/3";
-            $.ajax({
-                "url": my_url+"/search/movie/",
-                "data":{
-                    // Questa è la mia chiave!
-                    "api_key":"b05b883f04e9f1073304ba663a32e331",
-                    // Qui inserirò testo_input:
-                    "query":testo_input
-                },
-                "method":"GET",
-                "success": function(data_success){
-                    stampa_film(data_success);
-                },
-                "error": function(){
-                    alert("ERROR! -.-");
-                }
-            });
-// PARTE DELLA CHIAMATA API FILM: FINE
-// PARTE DELLA CHIAMATA API SERIE TV: INIZIO
-            $.ajax({
-                "url": my_url+"/search/tv/",
-                "data":{
-                    // Questa è la mia chiave!
-                    "api_key":"b05b883f04e9f1073304ba663a32e331",
-                    // Qui inserirò testo_input:
-                    "query":testo_input
-                },
-                "method":"GET",
-                "success": function(data_success){
-                    stampa_serie(data_success);
-                },
-                "error": function(){
-                    alert("ERROR! -.-");
-                }
-            });
-// PARTE DELLA CHIAMATA API SERIE TV: FINE
-            // RESET FINALE DEL VALORE NEL CAMPO INPUT
-            $("input").val("");
-        }
+        ricerca();
     });
-    $(".film-box").hover(function(){
-        $(this).css("background-color", "yellow");
-    }, function(){
-        $(this).css("background-color", "pink");
+    // Intercettiamo l'invio nel campo di testo.
+    $("input").keypress(function(event){
+        if (event.which==13) {
+            ricerca();
+        };
     });
-
 });
 //
 // FUNZIONI DICHIARATE:
+//
+// FUNZIONE RICERCA
+//
+function ricerca(){
+    // Svuotiamo il contenitore delle risposte di tutti i film cercati precedentemente:
+    $(".film-container").children().remove();
+    // Prendiamo il testo del campo input.
+    var testo_input = $("input").val();
+    // Con questo if, prendiamo il valore solo se non è vuoto!
+    if (testo_input.length!=0) {
+    // PARTE DELLA CHIAMATA API FILM: INIZIO
+        var my_url = "https://api.themoviedb.org/3";
+        $.ajax({
+            "url": my_url+"/search/movie/",
+            "data":{
+                // Questa è la mia chiave!
+                "api_key":"b05b883f04e9f1073304ba663a32e331",
+                // Qui inserirò testo_input:
+                "query":testo_input
+            },
+            "method":"GET",
+            "success": function(data_success){
+                stampa_film(data_success);
+            },
+            "error": function(){
+                alert("ERROR! -.-");
+            }
+        });
+    // PARTE DELLA CHIAMATA API FILM: FINE
+    // PARTE DELLA CHIAMATA API SERIE TV: INIZIO
+        $.ajax({
+            "url": my_url+"/search/tv/",
+            "data":{
+                // Questa è la mia chiave!
+                "api_key":"b05b883f04e9f1073304ba663a32e331",
+                // Qui inserirò testo_input:
+                "query":testo_input
+            },
+            "method":"GET",
+            "success": function(data_success){
+                stampa_serie(data_success);
+            },
+            "error": function(){
+                alert("ERROR! -.-");
+            }
+        });
+    // PARTE DELLA CHIAMATA API SERIE TV: FINE
+        // RESET FINALE DEL VALORE NEL CAMPO INPUT
+        $("input").val("");
+    }
+}
 //
 // FUNZIONE STELLINE
 //
