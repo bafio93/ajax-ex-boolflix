@@ -102,6 +102,7 @@ function stampa_film(data_success){
             "original_title":current_selection.original_title,
             "original_language":f_bandierina(current_selection.original_language),
             "stelline":f_stelline(current_selection.vote_count),
+            "overview":current_selection.overview,
             "img_src":ritorno_url(current_selection.poster_path)
         };
         // Ingetto le variabili nella funzione template:
@@ -129,7 +130,8 @@ function stampa_serie(data_success){
             "original_title":current_selection.original_name,
             "original_language":f_bandierina(current_selection.original_language),
             "stelline":f_stelline(current_selection.vote_count),
-            "img_src":ritorno_url(current_selection.poster_path)
+            "img_src":ritorno_url(current_selection.poster_path),
+            "overview":current_selection.overview,
         };
         // Ingetto le variabili nella funzione template:
         var html_finale = template_function(variabili);
@@ -139,7 +141,6 @@ function stampa_serie(data_success){
 //
 // FUNZIONE DI RITORNO URL POSTER
 //
-current_selection.poster_path
 function ritorno_url(percorso){
     var img_src = "https://image.tmdb.org/t/p/"+"w342/"+percorso;
     if (percorso == null) {

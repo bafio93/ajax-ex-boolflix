@@ -32,8 +32,13 @@ header {
     background-color: ivory;
     border-radius: 10px;
     margin: 5px;
+    width: 240px;
 }
 
 .film-container .film-box ul {
     list-style: none;
+}
+
+.film-container .film-box img.copertina {
+    height: 250px;
 }
