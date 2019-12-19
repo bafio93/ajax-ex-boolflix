@@ -47,8 +47,14 @@ $(document).ready(function(){
             // RESET FINALE DEL VALORE NEL CAMPO INPUT
             $("input").val("");
         }
-    })
-})
+    });
+    $(".film-box").hover(function(){
+        $(this).css("background-color", "yellow");
+    }, function(){
+        $(this).css("background-color", "pink");
+    });
+
+});
 //
 // FUNZIONI DICHIARATE:
 //
@@ -108,10 +114,8 @@ function stampa_film(data_success){
         // Ingetto le variabili nella funzione template:
         var html_finale = template_function(variabili);
         $(".film-container").append(html_finale);
-        //
-        // AGGIUNGIAMO LA PARTE DELLE COPERTINE
-        //
-        //
+        // Inserisco una funzione che mi fa lo "switch" tra scheda del film e dettagli!
+        nice_hover();
     };
 }
 //
@@ -136,6 +140,8 @@ function stampa_serie(data_success){
         // Ingetto le variabili nella funzione template:
         var html_finale = template_function(variabili);
         $(".film-container").append(html_finale);
+        // Inserisco una funzione che mi fa lo "switch" tra scheda del film e dettagli!
+        nice_hover();
     };
 }
 //
@@ -147,5 +153,17 @@ function ritorno_url(percorso){
         img_src = "http://story-one.com/wp-content/uploads/2016/02/Poster_Not_Available2.jpg";
     };
     return img_src
+}
+//
+// FUNZIONE DI EFFETTO HOVER
+//
+function nice_hover(){
+    $(".film-box").hover(function(){
+        $(this).children("ul").addClass("active");
+        $(this).children("img").removeClass("active");
+    },function(){
+        $(this).children("ul").removeClass("active");
+        $(this).children("img").addClass("active");
+    })
 }
 //

@@ -19,14 +19,14 @@
         <img src="" alt="">
         <script id="template-film" type="text/x-handlebars-template">
             <div class="film-box">
-                <ul>
+                <ul class="">
                     <li><strong>{{ title }}</strong></li>
                     <li><small>{{ original_title }}</small></li>
                     <img src="{{{ original_language }}}" alt="">
-                    <img class="copertina" src="{{{ img_src }}}" alt="">
                     <p>{{ overview }}</p>
+                    <div class="star-box ">{{{ stelline }}}</div>
                 </ul>
-                <div class="star-box">{{{ stelline }}}</div>
+                <img class="copertina active" src="{{{ img_src }}}" alt="">
             </div>
         </script>
         <!-- Mio script -->
