@@ -71,6 +71,10 @@ function f_stelline(voto) {
 //
 function f_bandierina(lingua){
     var codice_bandiera = "https://www.countryflags.io/";
+    // $.get(codice_bandiera).fail(function() {
+    //     codice_bandiera = "";
+    //     // Mezzo funziona, un po'incasinato però! :P
+    // });
     if (lingua=="en") {
         codice_bandiera += "gb/flat/32.png";
     } else if (lingua=="ja") {
@@ -80,10 +84,6 @@ function f_bandierina(lingua){
     } else {
         codice_bandiera += lingua + "/flat/32.png";
     };
-    $.get(codice_bandiera).fail(function() {
-        codice_bandiera = "";
-        // Mezzo funziona, un po'incasinato però! :P
-    });
     return codice_bandiera;
 }
 //
@@ -101,11 +101,16 @@ function stampa_film(data_success){
             "title":current_selection.title,
             "original_title":current_selection.original_title,
             "original_language":f_bandierina(current_selection.original_language),
-            "stelline":f_stelline(current_selection.vote_count)
+            "stelline":f_stelline(current_selection.vote_count),
+            "img_src":ritorno_url(current_selection.poster_path)
         };
         // Ingetto le variabili nella funzione template:
         var html_finale = template_function(variabili);
         $(".film-container").append(html_finale);
+        //
+        // AGGIUNGIAMO LA PARTE DELLE COPERTINE
+        //
+        //
     };
 }
 //
@@ -123,11 +128,23 @@ function stampa_serie(data_success){
             "title":current_selection.name,
             "original_title":current_selection.original_name,
             "original_language":f_bandierina(current_selection.original_language),
-            "stelline":f_stelline(current_selection.vote_count)
+            "stelline":f_stelline(current_selection.vote_count),
+            "img_src":ritorno_url(current_selection.poster_path)
         };
         // Ingetto le variabili nella funzione template:
         var html_finale = template_function(variabili);
         $(".film-container").append(html_finale);
     };
+}
+//
+// FUNZIONE DI RITORNO URL POSTER
+//
+current_selection.poster_path
+function ritorno_url(percorso){
+    var img_src = "https://image.tmdb.org/t/p/"+"w342/"+percorso;
+    if (percorso == null) {
+        img_src = "http://story-one.com/wp-content/uploads/2016/02/Poster_Not_Available2.jpg";
+    };
+    return img_src
 }
 //
