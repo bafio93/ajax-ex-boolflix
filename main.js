@@ -159,10 +159,10 @@ function ritorno_url(percorso){
 //
 function nice_hover(){
     $(".film-box").hover(function(){
-        $(this).children("ul").addClass("active");
+        $(this).children(".text-box").addClass("active");
         $(this).children("img").removeClass("active");
     },function(){
-        $(this).children("ul").removeClass("active");
+        $(this).children(".text-box").removeClass("active");
         $(this).children("img").addClass("active");
     })
 }
