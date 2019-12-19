@@ -82,6 +82,7 @@ header button:hover {
 
 .film-container .film-box .text-box p {
     font-size: 75%;
+    text-align: justify;
 }
 
 .film-container .film-box img.copertina {
